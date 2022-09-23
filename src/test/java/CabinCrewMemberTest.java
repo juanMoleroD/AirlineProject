@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CabinCrewMemberTest {
 
-    CabinCrewMember captain = new CabinCrewMember("Jill", CrewRank.CAPTAIN);
+    CabinCrewMember captain = new Pilot("Jill", CrewRank.CAPTAIN, "12345");
     CabinCrewMember firstOfficer = new CabinCrewMember("Anne", CrewRank.FIRST_OFFICER);
     CabinCrewMember purser = new CabinCrewMember("Jack", CrewRank.PURSER);
     CabinCrewMember attendant = new CabinCrewMember("Joey", CrewRank.FLIGHT_ATTENDANT);
