@@ -2,6 +2,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,7 +24,7 @@ class FlightTest {
     Flight flight;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws Exception {
         pilot = new Pilot("Florentine", CrewRank.CAPTAIN, "12345");
         captain = new CabinCrewMember("Jill", CrewRank.CAPTAIN);
         firstOfficer = new CabinCrewMember("Anne", CrewRank.FIRST_OFFICER);
@@ -34,7 +36,7 @@ class FlightTest {
 
 
         plane737 = new Plane(PlaneType.BOEING737);
-        date = LocalDateTime.of(2022, 9, 23, 15,30);
+        date = LocalDateTime.of(2022, 9, 23, 15, 30);
         flight = new Flight(pilot, plane737, "AA123",
                 "GLA", "PHL", date);
         flight.addCrewMember(firstOfficer);
@@ -64,7 +66,7 @@ class FlightTest {
     }
 
     @Test
-    void canAddPassengers() {
+    void canAddPassengers() throws Exception {
         flight.addPassenger(passenger3);
         assertEquals(3, flight.passengerCount());
     }
@@ -95,5 +97,34 @@ class FlightTest {
     @Test
     void crewCanRelayMessage() {
         assertEquals("Message to passengers", flight.getCrewMember().relayMessage());
+    }
+
+    @Test
+    void passengerIsAssignedTheFlightWhenAddedToPassengersList() {
+        assertEquals(flight, flight.getPassenger().getFlight());
+    }
+
+    @Test
+    void canGetArrayOfAllAllocatedSeats() {
+        List<Integer> result = new ArrayList<>();
+        result.add(passenger1.getSeat());
+        result.add(passenger2.getSeat());
+        assertEquals(result, flight.getAllocatedSeats());
+    }
+
+    @Test
+    void canGetRandomAvailableSeat() throws Exception {
+        int capacity = flight.getPlane().getCapacity();
+        for (int i = 0; i < 2000; i++) {
+            int randomSeat = flight.getRandomAvailableSeat();
+            assertTrue(0 < randomSeat && randomSeat < capacity);
+        }
+    }
+
+    @Test
+    void passengerGetsRandomSeatWhenAddedToPassengersList() {
+        int capacity = flight.getPlane().getCapacity();
+        assertTrue(flight.getPassenger().getSeat() < capacity &&
+                flight.getPassenger().getSeat() > 0);
     }
 }

@@ -15,4 +15,14 @@ class PassengerTest {
     void hasNumberOfBagsAndAccessible() {
         assertEquals(1, passenger.getNumberOfBags());
     }
+
+    @Test
+    void startsWithNoFlight() {
+        assertEquals(null, passenger.getFlight());
+    }
+
+    @Test
+    void startsWithSeatAs_minus1() {
+        assertEquals(-1, passenger.getSeat());
+    }
 }

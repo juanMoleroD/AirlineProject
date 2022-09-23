@@ -16,7 +16,7 @@ class FlightManagerTest {
     FlightManager manager;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws Exception {
         LocalDateTime date = LocalDateTime.of(2022, 9, 23, 15,30);
 
         pilot = new Pilot("Florentine", CrewRank.CAPTAIN, "12345");

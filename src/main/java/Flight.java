@@ -1,7 +1,8 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 public class Flight {
 
@@ -41,7 +42,9 @@ public class Flight {
         return passengers.size();
     }
 
-    public void addPassenger(Passenger passenger) {
+    public void addPassenger(Passenger passenger) throws Exception {
+        passenger.setSeat(getRandomAvailableSeat());
+        passenger.setFlight(this);
         passengers.add(passenger);
     }
 
@@ -64,6 +67,7 @@ public class Flight {
     public LocalDateTime getDepartureTime() {
         return departureTime;
     }
+
     public int getSeatsAvailable() {
         return plane.getCapacity() - passengerCount();
     }
@@ -71,4 +75,25 @@ public class Flight {
     public CabinCrewMember getCrewMember() {
         return crew.get(0);
     }
+
+    public Passenger getPassenger() {
+        return passengers.get(0);
+    }
+
+    public List<Integer> getAllocatedSeats() {
+        return passengers.stream().map(passenger -> passenger.getSeat()).collect(Collectors.toList());
+    }
+
+    public int getRandomAvailableSeat() throws Exception {
+        int capacity = getPlane().getCapacity();
+        List<Integer> allocated = getAllocatedSeats();
+        if (allocated.size() == capacity) throw new Exception("No more Seats available");
+        Random random = new Random();
+        int number = random.nextInt(1, capacity);
+        while (allocated.contains(number) || allocated.size() == capacity) {
+            number = random.nextInt(1, capacity);
+        }
+        return number;
+    }
+
 }
