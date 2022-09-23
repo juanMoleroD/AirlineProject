@@ -23,6 +23,10 @@ class CabinCrewMemberTest {
         assertEquals(CrewRank.FIRST_OFFICER, firstOfficer.getRank());
         assertEquals(CrewRank.PURSER, purser.getRank());
         assertEquals(CrewRank.FLIGHT_ATTENDANT, attendant.getRank());
+    }
 
+    @Test
+    void canRelayMessageToPassengers() {
+        assertEquals("Message to passengers", attendant.relayMessage());
     }
 }

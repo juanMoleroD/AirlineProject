@@ -83,4 +83,14 @@ class FlightTest {
     void canReturnNumberOfAvailableSeats() {
         assertEquals(98, flight.getSeatsAvailable());
     }
+
+    @Test
+    void pilotCanFlyPlane() {
+        assertEquals("Pilot is flying the plane", flight.getPilot().flyPlane(flight.getPlane()));
+    }
+
+    @Test
+    void crewCanRelayMessage() {
+        assertEquals("Message to passengers", flight.getCrewMember().relayMessage());
+    }
 }

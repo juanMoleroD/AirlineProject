@@ -66,4 +66,7 @@ public class Flight {
         return plane.getCapacity() - passengerCount();
     }
 
+    public CabinCrewMember getCrewMember() {
+        return crew.get(0);
+    }
 }
