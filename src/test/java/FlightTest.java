@@ -1,10 +1,13 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class FlightTest {
 
+    LocalDateTime date;
     Pilot pilot;
     CabinCrewMember captain;
     CabinCrewMember firstOfficer;
@@ -31,9 +34,9 @@ class FlightTest {
 
 
         plane737 = new Plane(PlaneType.BOEING737);
-
+        date = LocalDateTime.of(2022, 9, 23, 15,30);
         flight = new Flight(pilot, plane737, "AA123",
-                "GLA", "PHL", "15:00");
+                "GLA", "PHL", date);
         flight.addCrewMember(firstOfficer);
         flight.addCrewMember(purser);
         flight.addCrewMember(attendant);
@@ -76,7 +79,7 @@ class FlightTest {
         assertEquals("AA123", flight.getFlightNumber());
         assertEquals("GLA", flight.getDestination());
         assertEquals("PHL", flight.getDepartureAirport());
-        assertEquals("15:00", flight.getDepartureTime());
+        assertEquals(date, flight.getDepartureTime());
     }
 
     @Test
