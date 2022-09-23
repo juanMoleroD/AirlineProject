@@ -32,4 +32,19 @@ class FlightManagerTest {
     void hasFlightToManager() {
         assertEquals(flight, manager.getFlight());
     }
+
+    @Test
+    void calculatesMaxBaggageWeightPerPassenger() {
+        assertEquals(50, manager.getMaxBaggageWeightPerPassenger());
+    }
+
+    @Test
+    void calculatesCurrentTotalBaggageWeightWithConfirmedPassengers() {
+        assertEquals(100, manager.getCurrentBaggageWeight());
+    }
+
+    @Test
+    void calculatesRemainingBaggageWeightOnPlane() {
+        assertEquals(4900, manager.getAvailableWeightForBaggage());
+    }
 }
